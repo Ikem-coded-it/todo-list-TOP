@@ -1,0 +1,30 @@
+{
+  "name": "todo-list-top",
+  "version": "1.0.0",
+  "description": "A todo list app for the odin project.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "start": "webpack serve --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ikem-coded-it/todo-list-TOP.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ikem-coded-it/todo-list-TOP/issues"
+  },
+  "homepage": "https://github.com/Ikem-coded-it/todo-list-TOP#readme",
+  "devDependencies": {
+    "css-loader": "^6.7.3",
+    "html-webpack-plugin": "^5.5.0",
+    "style-loader": "^3.3.2",
+    "webpack": "^5.76.1",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1"
+  }
+}
