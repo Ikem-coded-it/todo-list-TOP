@@ -10,6 +10,10 @@ module.exports = {
         clean: true,
         publicPath: '/',
     },
+    devtool: 'inline-source-map',
+    devServer: {
+        static: './dist',
+    },
     plugins: [
         new htmlWebpackPlugin({
             title: 'Willdo app',
