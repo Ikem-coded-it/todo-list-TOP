@@ -26,5 +26,8 @@
     "webpack": "^5.76.1",
     "webpack-cli": "^5.0.1",
     "webpack-dev-server": "^4.11.1"
+  },
+  "dependencies": {
+    "@js-temporal/polyfill": "^0.4.3"
   }
 }

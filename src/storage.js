@@ -16,8 +16,6 @@ export default class LocalStorageOperations{
     getAll() {
         const todos = JSON.parse(this.storage.getItem('todos'));
         const projects = JSON.parse(this.storage.getItem('projects'));
-        console.log(todos)
-        console.log(projects)
         return {todos, projects};
     }
 
