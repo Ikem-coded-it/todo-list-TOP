@@ -18,7 +18,7 @@ module.exports = {
         new htmlWebpackPlugin({
             title: 'Willdo app',
             filename: 'index.html'
-        })
+        }),
     ],
     module: {
         rules: [

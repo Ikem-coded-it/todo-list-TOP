@@ -18,7 +18,7 @@ export default class LocalStorageOperations{
         const projects = JSON.parse(this.storage.getItem('projects'));
         console.log(todos)
         console.log(projects)
-        return
+        return {todos, projects};
     }
 
     saveTodo(todo) {
