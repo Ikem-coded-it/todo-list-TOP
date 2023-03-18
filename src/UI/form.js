@@ -3,49 +3,40 @@
 export default function createForm () {
     const form = document.createElement('form');
 
-    const titleInput = document.createElement('input')
-    const descriptionInput = document.createElement('textarea')
-    const dateInput = document.createElement('input')
-    const priorityInput = document.createElement('select')
-    const titleLabel = document.createElement('label')
-    const descriptionLabel = document.createElement('label')
-    const dateLabel = document.createElement('label')
-    const priorityLabel = document.createElement('label')
+    const titleInput = document.createElement('div')
+    const descriptionInput = document.createElement('div')
+    const dateInput = document.createElement('div')
+    const priorityInput = document.createElement('div')
     const submitButton = document.createElement('button')
 
-    // add attributes
-    titleInput.setAttribute('type', 'text')
-    titleInput.setAttribute('name', 'title')
-    titleInput.classList.add('title-input')
+    titleInput.innerHTML = ' \
+    <label for="title" >Title</label> \
+    <input  type="text" name="title" class="title-input" >';
 
-    dateInput.setAttribute('type', 'date')
-    dateInput.setAttribute('name', 'date')
-    dateInput.classList.add('date-input')
+    descriptionInput.innerHTML = ' \
+    <label for="description">Details</label> \
+    <textarea name="description" class="description-input"></textarea>';
 
-    descriptionInput.setAttribute('name', 'description')
+    dateInput.innerHTML = ' \
+    <label for="date" >Due date</label> \
+    <input type="date" name="date" class="date-input" >';
 
-    priorityInput.setAttribute('name', 'priority')
-    priorityInput.innerHTML = '\
-    <option value="low" >Low</option> \
-    <option value="medium" >Medium</option> \
-    <option value="high" >High</option>';
-
-    titleLabel.setAttribute('for', 'title')
-    descriptionLabel.setAttribute('for', 'description')
-    dateLabel.setAttribute('for', 'date')
-    priorityLabel.setAttribute('for', 'priority')
+    priorityInput.innerHTML = ' \
+    <label for="priority" >Priority</label> \
+    <select name="priority" > \
+        <option value="low" >Low</option> \
+        <option value="medium" >Medium</option> \
+        <option value="high" >High</option> \
+    </select>';
 
     submitButton.setAttribute('type', 'submit')
+    submitButton.textContent = 'Add todo'
     submitButton.classList.add('btn')
 
     // append inputs and labels to form
-    form.appendChild(titleLabel)
     form.appendChild(titleInput)
-    form.appendChild(descriptionLabel)
     form.appendChild(descriptionInput)
-    form.appendChild(dateLabel)
     form.appendChild(dateInput)
-    form.appendChild(priorityLabel)
     form.appendChild(priorityInput)
     form.appendChild(submitButton)
 

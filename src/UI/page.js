@@ -1,6 +1,8 @@
 import './style.css';
 import { createHeader } from './header.js';
 import createSideBar from './sidebar.js';
+import Content from './content.js';
+const contentCreator = new Content();
 
 export default function createWebsiteFrame() {
     const body = document.body;
@@ -16,7 +18,7 @@ export default function createWebsiteFrame() {
     sideBar.appendChild(createSideBar())
 
     content.classList.add('content')
-    content.textContent = 'content'
+    content.appendChild(contentCreator.createSections());
 
     footer.classList.add('footer')
     footer.textContent = 'footer'
