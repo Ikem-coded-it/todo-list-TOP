@@ -1,44 +1,72 @@
 
-
-export default function createForm () {
+export default function formFunctions () {
     const form = document.createElement('form');
 
     const titleInput = document.createElement('div')
     const descriptionInput = document.createElement('div')
+    const datePriorityInput = document.createElement('div')
     const dateInput = document.createElement('div')
     const priorityInput = document.createElement('div')
     const submitButton = document.createElement('button')
 
     titleInput.innerHTML = ' \
-    <label for="title" >Title</label> \
-    <input  type="text" name="title" class="title-input" >';
+    <label for="title" >Title \
+    </label> \
+    <input id="titleInput"  type="text" name="title" class="title-input" >';
 
     descriptionInput.innerHTML = ' \
-    <label for="description">Details</label> \
-    <textarea name="description" class="description-input"></textarea>';
+    <label for="description">Details \
+    </label> \
+    <textarea id="descriptionInput" name="description" class="description-input"> \
+    </textarea>';
 
+    datePriorityInput.classList.add('date-priority-input-container')
     dateInput.innerHTML = ' \
-    <label for="date" >Due date</label> \
-    <input type="date" name="date" class="date-input" >';
+    <label for="date" >Due date \
+    </label> \
+    <input id="dateInput" type="date" name="date" class="date-input" >';
 
     priorityInput.innerHTML = ' \
     <label for="priority" >Priority</label> \
-    <select name="priority" > \
-        <option value="low" >Low</option> \
+    <select id="priorityInput" name="priority" > \
+        <option value="low" selected="selected">Low</option> \
         <option value="medium" >Medium</option> \
         <option value="high" >High</option> \
     </select>';
 
     submitButton.setAttribute('type', 'submit')
-    submitButton.textContent = 'Add todo'
-    submitButton.classList.add('btn')
+    submitButton.classList.add('submit-btn')
+    submitButton.textContent = 'Add';
+
+    datePriorityInput.appendChild(dateInput)
+    datePriorityInput.appendChild(priorityInput)
 
     // append inputs and labels to form
     form.appendChild(titleInput)
     form.appendChild(descriptionInput)
-    form.appendChild(dateInput)
-    form.appendChild(priorityInput)
+    form.appendChild(datePriorityInput)
     form.appendChild(submitButton)
 
-    return form;
+    const emptyForm = () => {
+        let filledForm = document.getElementsByTagName('form')[0]
+        filledForm.titleInput.value = '';
+        filledForm.descriptionInput.value = '';
+        filledForm.dateInput.value = '';
+        filledForm.priorityInput.value = 'low';
+    }
+
+    const displayForm = (todo) => {
+        let display = document.getElementsByTagName('form')[0];
+         
+        display.titleInput.value = todo.title;
+        display.descriptionInput.value = todo.description;
+        display.dateInput.value = todo.dueDate;
+        display.priorityInput.value = todo.priority;
+    }
+
+    return { 
+        form, 
+        emptyForm,
+        displayForm
+    };
 }

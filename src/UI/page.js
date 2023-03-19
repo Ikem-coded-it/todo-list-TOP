@@ -1,8 +1,8 @@
 import './style.css';
 import { createHeader } from './header.js';
 import createSideBar from './sidebar.js';
-import Content from './content.js';
-const contentCreator = new Content();
+import ContentCreator from './content.js';
+const contentCreator = new ContentCreator();
 
 export default function createWebsiteFrame() {
     const body = document.body;

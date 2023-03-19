@@ -2,9 +2,9 @@ import LocalStorageOperations from "./storage";
 const storage = new LocalStorageOperations();
 
 export default class Project {
-    constructor(name) {
+    constructor(name, todos) {
         this.name = name;
-        this.todos = [];
+        this.todos = todos ? todos : [];
     }
 
     saveProject() {
