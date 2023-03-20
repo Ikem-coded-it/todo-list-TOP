@@ -1,8 +1,10 @@
 import LocalStorageOperations from "./storage";
 const storage = new LocalStorageOperations();
+import { v4 as uuidv4 } from 'uuid';
 
 export default class Project {
     constructor(name, todos) {
+        this.id = uuidv4()
         this.name = name;
         this.todos = todos ? todos : [];
     }
@@ -10,6 +12,11 @@ export default class Project {
     saveProject() {
         storage.saveProject(this)
         console.log('project saved to local storage');
+    }
+
+    updateProject(newProject) {
+        storage.updateProject(this, newProject)
+        console.log('Project updated')
     }
 
     deleteProject() {

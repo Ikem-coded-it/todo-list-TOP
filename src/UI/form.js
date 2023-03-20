@@ -1,3 +1,4 @@
+import ContentCreator from "./content";
 
 export default function formFunctions () {
     const form = document.createElement('form');
@@ -62,6 +63,13 @@ export default function formFunctions () {
         display.descriptionInput.value = todo.description;
         display.dateInput.value = todo.dueDate;
         display.priorityInput.value = todo.priority;
+
+
+        display.classList.add('edit-form')
+        display.childNodes[3].textContent = 'Edit';
+        display.setAttribute('data-id', `${todo.id}`)
+
+        return display;
     }
 
     return { 

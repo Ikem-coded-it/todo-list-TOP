@@ -356,11 +356,11 @@ label {
 .todo-container > ul {
     position: absolute;
     top: 88px;
-    width: 70%;
+    width: 90%;
 }
 
 .todo-container ul li {
-    padding: 10px;
+    padding: 3px;
     margin-left: 10px;
     background-color: var(--todos-color);
     display: flex;
@@ -376,17 +376,28 @@ label {
     background-color: #b3f8ea;
 }
 
-.trash-can {
-    color: var(--icon-color);
+.check-title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+}
+
+.check-title-container p:hover {
+    color:#84cc16;
 }
 
 .todo-icons-container {
     display: flex;
     gap: 10px;
     justify-content: center;
-    align-self: center;
+    align-items: center;
 }
- 
+
+.edit-icon {
+    height: 25px;
+}
+
 .low {
     color: #84cc16;
 }

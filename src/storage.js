@@ -44,12 +44,21 @@ export default class LocalStorageOperations{
 
     updateTodo(oldTodo, newTodo) {
         const todoDatabase = JSON.parse(this.storage.getItem('todos'));
+        const projectTodDatabase = JSON.parse(this.storage.getItem('projects'))
+
+        let projectTodos = []
+        projectTodDatabase.forEach(project => {
+             if (project.todos.length > 0) {
+                project.todos.forEach(todo => projectTodos.push(todo))
+            }
+        })
+        let allTodos = todoDatabase.concat(projectTodos)
 
         // find todo in todo array
-        const todo = todoDatabase.find(todo => todo.title === oldTodo.title && todo.description === oldTodo.description)
+        const todo = allTodos.find(todo => todo.id === oldTodo.id)
 
         if (!todo) {
-            console,log('Todo does not exist');
+            console.log('Todo does not exist');
             return
         };
 
@@ -70,6 +79,19 @@ export default class LocalStorageOperations{
         projectDatabase.push(project);
         this.storage.setItem('projects', JSON.stringify(projectDatabase));
 
+        return
+    }
+
+    updateProject(oldProject, newProject) {
+        const projectDatabase = JSON.parse(this.storage.getItem('projects'));
+
+        let project = projectDatabase.find(project => project.id == oldProject.id)
+        if (!project) alert('Project does not exist')
+ 
+        project.name = newProject.name
+        project.todos = newProject.todos
+ 
+        this.storage.setItem('projects', JSON.stringify(projectDatabase))
         return
     }
 

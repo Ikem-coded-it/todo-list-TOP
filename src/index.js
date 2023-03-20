@@ -7,7 +7,8 @@ const storage = new LocalStorageOperations();
 
 storage.initializeStorage()
 
-const project1 = new Project('work', [{title: 'projectTodo', description:'from project', dueDate:'2023-05-06', priority:'high'}])
+const project1 = new Project('work', [new Todo('projectTodo', 'from project', '2023-05-06', 'high'), 
+    new Todo('Projecttodo2', 'from project', '2023-05-06', 'high')])
 const project2 = new Project('gym')
 const project3 = new Project('school')
 const project4 = new Project('Todo app')
@@ -32,6 +33,7 @@ todo2.saveTodo()
 todo3.saveTodo()
 todo4.saveTodo()
 // todo5.saveTodo()
+ 
  
 
 initializeUI()
