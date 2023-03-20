@@ -113,7 +113,7 @@ export default class LocalStorageOperations{
 
     removeProjectTodo(todoToRemove, projectToRemoveFrom) {
         const projectDatabase = JSON.parse(this.storage.getItem('projects'));
-        const project = projectDatabase.find(project => project.name == projectToRemoveFrom.name)
+        const project = projectDatabase.find(project => project.id == projectToRemoveFrom.id)
 
         if (!project) {
             console,log('Project does not exist');
@@ -122,16 +122,13 @@ export default class LocalStorageOperations{
 
         let todoIndex;
         project.todos.forEach(todo => {
-            if (todo.title == todoToRemove.title &&
-                todo.description == todoToRemove.decription) {
-                    todoIndex = project.todos.indexOf(todo)
+            if (todo.id == todoToRemove.id ) {
+                todoIndex = project.todos.indexOf(todo)
             }
         })
-
         project.todos.splice(todoIndex, 1)
 
         this.storage.setItem('projects', JSON.stringify(projectDatabase))
-
         return
     }
 

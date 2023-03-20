@@ -7,9 +7,10 @@ const storage = new LocalStorageOperations();
 
 storage.initializeStorage()
 
-const project1 = new Project('work', [new Todo('projectTodo', 'from project', '2023-05-06', 'high'), 
-    new Todo('Projecttodo2', 'from project', '2023-05-06', 'high')])
-const project2 = new Project('gym')
+const project1 = new Project('work', [new Todo('Code stuff', 'from project', '2023-05-06', 'high'), 
+    new Todo('work things', 'from project', '2023-05-06', 'high')])
+const project2 = new Project('gym', [new Todo('Gym Stuff', 'from project', '2023-05-06', 'high'), 
+    new Todo('School stuff', 'from project', '2023-05-06', 'high')])
 const project3 = new Project('school')
 const project4 = new Project('Todo app')
 const project5 = new Project('accounting')
@@ -21,8 +22,8 @@ const todo3 = new Todo('school', 'do homework', '2023-09-15', 'medium');
 const todo4 = new Todo('code', 'do this project', '2020-08-12', 'high');
 const todo5 = new Todo('eatjdcnkwnovn;oJVOIAJVONWRIFJOIWRJFOIJWROIFJOIEWJFIWEJSDNVLKNDLVLSDMVLDFVLIDFLIVLIV', 'find some food coz im starving', '2020-11-6', 'medium');
 
-project1.saveProject()
-project2.saveProject()
+// project1.saveProject()
+// project2.saveProject()
 project3.saveProject()
 project4.saveProject()
 project5.saveProject()

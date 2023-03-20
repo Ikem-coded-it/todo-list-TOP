@@ -73,6 +73,7 @@ export default class ContentCreator {
                 </svg>\
             </div>`;
             listener.showDetails(todoItem.childNodes[0].childNodes[1], todo)
+           listener.deleteTodo(todoItem.childNodes[2].childNodes[3], todo)
 
             todoList.appendChild(todoItem);
         })
@@ -106,15 +107,55 @@ export default class ContentCreator {
 // Returns event listener functions
 function listen() {
     
-    let submit = function(form) {
+    const submit = function(form) {
         form.addEventListener('submit', (e) => onSubmit(e, form)) // "onSubmit (line 121 - 206)"
         return
     }
 
-    let showDetails = (todoItem, todo) => {
+    const showDetails = (todoItem, todo) => {
         let { displayForm } = formFunctions();
         todoItem.addEventListener('click', () => displayForm(todo))
         return;
+    }
+
+    const deleteTodo = (deleteButton, todo) => {
+        deleteButton.addEventListener('click', () => {
+            let { todos, projects } = storage.getAll();
+            let todoId = todo.id;
+
+             // Delete a todo thats under a project
+            let propertyAssignedProject
+            projects.forEach(project => {
+                if (project.todos.length > 0) {
+                    project.todos.forEach(todo => {
+                        if (todo.id == todoId) {
+                            propertyAssignedProject = Object.assign(new Project(), project)
+                        } 
+                    })
+                }
+            });
+
+            if (propertyAssignedProject) {
+                propertyAssignedProject.removeTodo(todo)
+                let content = new ContentCreator()
+                content.updateTodoList();
+                return
+            }
+            
+            let propertyAssignedTodo;
+            todos.forEach(task => {
+                if (task.id == todo.id) {
+                    propertyAssignedTodo = Object.assign(new Todo(), task)
+                }
+            })
+
+            if (propertyAssignedTodo) {
+                propertyAssignedTodo.deleteTodo()
+            }
+            let content = new ContentCreator()
+            content.updateTodoList();
+            return
+        })
     }
 
 
@@ -219,7 +260,8 @@ function listen() {
 
     return {
         submit,
-        showDetails
+        showDetails,
+        deleteTodo
     }
 }
 
