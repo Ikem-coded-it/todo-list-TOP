@@ -5,11 +5,19 @@ const storage = new LocalStorageOperations();
 export default class DateTodoFetchOperations{
     
     fetchTodayTodos() {
-        const { todos } = storage.getAll();
+        let { todos, projects } = storage.getAll();
+        let projectTodos = []
+        projects.forEach(project => {
+            if (project.todos.length > 0) {
+                project.todos.forEach(todo => projectTodos.push(todo))
+            }
+        });
+
+        const allTodos = todos.concat(projectTodos)
         const date = Temporal.Now.plainDateISO().toString()
  
         let todayTodos = []
-        todos.forEach(todo => {
+        allTodos.forEach(todo => {
             if (todo.dueDate == date) todayTodos.push(todo)
         })
 

@@ -46,16 +46,21 @@ export default class ContentCreator {
         return todoContainer
     }
 
-     createTodoList() {
-        let { todos, projects } = storage.getAll();
-        let projectTodos = []
-        projects.forEach(project => {
-            if (project.todos.length > 0) {
-                project.todos.forEach(todo => projectTodos.push(todo))
-            }
-        });
+     createTodoList(todos) {
+        let allTodos;
+        if (todos) {
+            allTodos = todos
+        } else {
+            let { todos, projects } = storage.getAll();
+            let projectTodos = []
+            projects.forEach(project => {
+                if (project.todos.length > 0) {
+                    project.todos.forEach(todo => projectTodos.push(todo))
+                }
+            });
 
-        const allTodos = todos.concat(projectTodos)
+            allTodos = todos.concat(projectTodos)
+        }
      
         const todoList = document.createElement('ul')
         todoList.classList.add('todo-list')

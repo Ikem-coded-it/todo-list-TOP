@@ -132,6 +132,7 @@ i {
     font-weight: 100px;
     position: absolute;
     top: 30px;
+    left: 20px;
 }
 
 .side-bar-stuff > div {
@@ -183,6 +184,38 @@ i {
     width: 100%;
 }
 
+#projects-container>.project-form-container {
+    display: none;
+}
+
+#projects-container>.display {
+    display: block;
+}
+
+#projects-container>.project-form-container>form {
+    display: flex;
+    gap: 5px;
+}
+
+#projects-container>.project-form-container > form > input {
+    width: 50%;
+    height: 30px;
+    background-color: var(--todos-color);
+    font-family: Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    padding: 0 5px 0 5px;
+    border-radius: 3.5424px;
+}
+
+#projects-container>.project-form-container>form>button {
+    width: 25%;
+    font-weight: bold;
+    background-color: var(--icon-color);
+    border: none;
+    border-radius: 3px;
+    color: var(--content-color);
+}
+
 .project-list {
     display: none;
     position: absolute;
@@ -200,11 +233,11 @@ i {
     color: var(--icon-color)
 }
 
-#projects-container:hover .project-list {
-    display: block;
+.project-list {
+    display: none;
 }
 
-.project-list:hover {
+.display {
     display: block;
 }
 
@@ -228,7 +261,7 @@ i {
     border-bottom-right-radius: 20px;
 }
 
-form {
+.todo-form {
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -237,7 +270,7 @@ form {
     gap: 10px;
 }
 
-form div {
+.todo-form div {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -276,7 +309,7 @@ label {
     color: var(--text-color);
 }
 
-.date-priority-input-container {
+#date-priority-input-container {
     flex-direction: row;
     justify-content: space-between;
     width: 87%;

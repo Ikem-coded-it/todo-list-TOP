@@ -2,6 +2,7 @@ import ContentCreator from "./content";
 
 export default function formFunctions () {
     const form = document.createElement('form');
+    form.classList.add('todo-form')
 
     const titleInput = document.createElement('div')
     const descriptionInput = document.createElement('div')
@@ -21,7 +22,7 @@ export default function formFunctions () {
     <textarea id="descriptionInput" name="description" class="description-input"> \
     </textarea>';
 
-    datePriorityInput.classList.add('date-priority-input-container')
+    datePriorityInput.setAttribute('id', 'date-priority-input-container')
     dateInput.innerHTML = ' \
     <label for="date" >Due date \
     </label> \
