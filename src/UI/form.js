@@ -50,7 +50,7 @@ export default function formFunctions () {
     form.appendChild(submitButton)
 
     const emptyForm = () => {
-        let filledForm = document.getElementsByTagName('form')[0]
+        let filledForm = document.getElementsByClassName('todo-form')[0]
         filledForm.titleInput.value = '';
         filledForm.descriptionInput.value = '';
         filledForm.dateInput.value = '';

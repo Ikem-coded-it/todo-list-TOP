@@ -72,10 +72,7 @@ export default class ContentCreator {
             </div>\ 
             <div class="todo-icons-container">\
                 <i class="fa-solid fa-star ${todo.priority}" ></i>\
-                <svg class="trash-can" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">\
-                    <path d="M19 6h-3.5l-1-1h-5l-1 1H5v2h14zM8 19v-9h2v9H8zm4 0v-9h2v9h-2zm4 0v-9h2v9h-2z"/>\
-                    <path d="M0 0h24v24H0z" fill="none"/>\
-                </svg>\
+                <i class="fa-solid fa-trash-can trash-can"></i>\
             </div>`;
             listener.showDetails(todoItem.childNodes[0].childNodes[1], todo)
            listener.deleteTodo(todoItem.childNodes[2].childNodes[3], todo)
@@ -225,12 +222,14 @@ function listen() {
          * ==================================================================================================
          * Run this if to add new todo
          */
+
         let { todos } = storage.getAll()
         let values = []
         let elements = form.elements;
         [...elements].forEach(element => {
             values.push(element.value)
         })
+        console.log(values)
 
         todos.forEach(todo => {
             if (todo.title == values[0]) alert('Todo exists already.')
@@ -245,6 +244,16 @@ function listen() {
             values[2],
             values[3]
         )
+         
+        let projectId = form.getAttribute('data-id')
+        if (projectId) {
+            let projectToUpdate = storage.getSingleProject(projectId);
+            let propertyAssignedProjectToUpdate = Object.assign(new Project(), projectToUpdate);
+            propertyAssignedProjectToUpdate.addTodo(todo)
+            form.removeAttribute('data-id');
+            finalizeUpdate(form)
+            return
+        }
          
         todo.saveTodo()
         finalizeUpdate(form)
@@ -271,3 +280,4 @@ function listen() {
 }
 
 const listener = listen()
+export { listener as formListener };

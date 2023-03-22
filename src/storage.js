@@ -73,6 +73,12 @@ export default class LocalStorageOperations{
         return
     }
 
+    getSingleProject(projectId) {
+        const projectDatabase = JSON.parse(this.storage.getItem('projects'));
+        let project = projectDatabase.find(project => project.id == projectId);
+        return project;
+    }
+
 
     saveProject(project) {
         const projectDatabase = JSON.parse(this.storage.getItem('projects'));
@@ -97,7 +103,7 @@ export default class LocalStorageOperations{
 
     addProjectTodo(projectToUpdate) {
         const projectDatabase = JSON.parse(this.storage.getItem('projects'));
-        const project = projectDatabase.find(project => project.name == projectToUpdate.name)
+        const project = projectDatabase.find(project => project.id == projectToUpdate.id)
 
         if (!project) {
             console,log('Project does not exist');

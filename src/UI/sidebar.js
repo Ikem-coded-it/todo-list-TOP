@@ -2,6 +2,7 @@ import LocalStorageOperations from '../storage.js';
 import ContentCreator from './content.js';
 import DateTodoFetchOperations from '../date.js';
 import Project from '../project.js';
+import { formListener } from './content.js';
 const storage = new LocalStorageOperations();
 const content = new ContentCreator();
 const date = new DateTodoFetchOperations();
@@ -75,10 +76,16 @@ function makeProjects() {
     const { projects } = storage.getAll();
     projects.forEach(project => {
         const projectItem = document.createElement('li');
-        projectItem.textContent = `${project.name}`;
+        projectItem.innerHTML = `
+        <div>
+            <i class="fa-solid fa-plus"></i>
+            ${project.name}
+        </div>
+        <i class="fa-solid fa-trash-can"></i>`;
+        projectItem.classList.add('project-item')
+        listener.addTaskToProject(projectItem.childNodes[1].childNodes[1], project)
         projectList.appendChild(projectItem);
     })
-
     return projectList;
 }
 
@@ -146,6 +153,16 @@ function listen() {
         return
     }
 
+    const addTaskToProject = function (newProjectTodoButton, project) {
+        newProjectTodoButton.addEventListener('click', () => {
+            let form = document.getElementsByClassName('todo-form')[0]
+            form.setAttribute('data-id', `${project.id}`)
+            let todoNameInput = document.getElementById('titleInput');
+            todoNameInput.focus();
+        })
+        return;
+    }
+
     /**
      * HELPERS
      */
@@ -174,6 +191,7 @@ function listen() {
         showProjectForm,
         viewAllProjects,
         addNewProject,
+        addTaskToProject,
     }
 
 }

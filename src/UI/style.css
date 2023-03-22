@@ -241,6 +241,35 @@ i {
     display: block;
 }
 
+.project-item {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+}
+
+.project-item > div {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+}
+
+.project-item>div>.fa-plus {
+    color: var(--content-color);
+    font-size: 10px;
+}
+
+.project-item > .fa-plus {
+    color: var(--content-color);
+}
+
+.project-item > .fa-trash-can {
+    color: var(--content-color);
+    font-size: 12px;
+}
+
 
 /* CONTENT STYLES */
 
@@ -427,10 +456,6 @@ label {
     align-items: center;
 }
 
-.edit-icon {
-    height: 25px;
-}
-
 .low {
     color: #84cc16;
 }
@@ -441,4 +466,8 @@ label {
 
 .high {
     color: #ef4444;
+}
+
+.todo-icons-container > .fa-trash-can {
+    color: var(--text-color);
 }
