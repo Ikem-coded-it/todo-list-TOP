@@ -1,9 +1,11 @@
 import LocalStorageOperations from '../storage.js'; 
 import ContentCreator from './content.js';
 import DateTodoFetchOperations from '../date.js';
+import Project from '../project.js';
 const storage = new LocalStorageOperations();
 const content = new ContentCreator();
 const date = new DateTodoFetchOperations();
+const project = new Project();
 
 export default function createSideBar () {
     const content = document.createElement('div');
@@ -42,7 +44,7 @@ export default function createSideBar () {
     projectsContainer.appendChild(newProjectForm())
     projectsContainer.appendChild(makeProjects())
     projectsContainer.setAttribute('id', 'projects-container')
-    listener.addNewProject(projectsContainer.childNodes[0].childNodes[1])
+    listener.showProjectForm(projectsContainer.childNodes[0].childNodes[1])
     listener.viewAllProjects(projectsContainer.childNodes[0].childNodes[5])
 
     sideBarStuff.appendChild(allTasksContainer)
@@ -59,6 +61,7 @@ function newProjectForm() {
     let form = document.createElement('form');
     form.classList.add('project-form')
     form.innerHTML = '<input type="text" placeholder="Project name"><button type="submit">Add</button>';
+    listener.addNewProject(form)
     formContainer.appendChild(form)
     formContainer.classList.add('project-form-container')
     return formContainer;
@@ -105,12 +108,12 @@ function listen() {
         })
     }
 
-    const addNewProject = function(newProjectButton) {
+    const showProjectForm = function(newProjectButton) {
         newProjectButton.addEventListener('click', () => {
             let formContainer = document.getElementsByClassName('project-form-container')[0]
-            let todoListContainer = document.getElementsByClassName('project-list')[0]
-            if (todoListContainer.classList.length > 1) {
-                todoListContainer.classList.remove('display')
+            let projectList = document.getElementsByClassName('project-list')[0]
+            if (projectList.classList.length > 1) {
+                projectList.classList.remove('display')
             }
             formContainer.classList.toggle('display');
         })
@@ -129,6 +132,20 @@ function listen() {
         return
     }
 
+    const addNewProject = function(form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault()
+            let newProject = new Project(form.childNodes[0].value)
+            newProject.saveProject()
+            let formContainer = document.getElementsByClassName('project-form-container')[0];
+            if (formContainer.classList.length > 1) {
+                formContainer.classList.remove('display')
+            }
+            updateProjectList()
+        })
+        return
+    }
+
     /**
      * HELPERS
      */
@@ -139,12 +156,24 @@ function listen() {
         todoContainer.appendChild(todoList);
         return;
     }
+
+    const updateProjectList = function() {
+        let newProjectList = makeProjects()
+        let oldProjectList = document.getElementsByClassName('project-list')[0]
+
+        let projectListContainer = oldProjectList.parentElement
+        projectListContainer.removeChild(oldProjectList);
+        projectListContainer.appendChild(newProjectList);
+        return;
+    }
+
     return {
         getAllTasksEvent,
         getTodayTasks,
         getWeeklyTasks,
-        addNewProject,
+        showProjectForm,
         viewAllProjects,
+        addNewProject,
     }
 
 }
