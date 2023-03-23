@@ -106,7 +106,7 @@ export default class LocalStorageOperations{
         const project = projectDatabase.find(project => project.id == projectToUpdate.id)
 
         if (!project) {
-            console,log('Project does not exist');
+            console.log('Project does not exist');
             return
         };
 

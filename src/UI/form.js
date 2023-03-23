@@ -58,7 +58,7 @@ export default function formFunctions () {
     }
 
     const displayForm = (todo) => {
-        let display = document.getElementsByTagName('form')[0];
+        let display = document.getElementsByClassName('todo-form')[0];
          
         display.titleInput.value = todo.title;
         display.descriptionInput.value = todo.description;
@@ -69,7 +69,7 @@ export default function formFunctions () {
         display.classList.add('edit-form')
         display.childNodes[3].textContent = 'Edit';
         display.setAttribute('data-id', `${todo.id}`)
-
+ 
         return display;
     }
 

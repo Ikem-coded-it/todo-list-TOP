@@ -290,6 +290,8 @@ i {
     border-bottom-right-radius: 20px;
 }
 
+/* FORM STYLES */
+
 .todo-form {
     height: 100%;
     display: flex;
@@ -374,6 +376,7 @@ label {
     background-color: #8ccc2b;
 }
 
+/* TODO DISPLAY STYLES */
 
 .todo-container {
     /* border: 1px solid black; */
@@ -388,14 +391,14 @@ label {
     border-bottom-left-radius: 20px;
 }
 
-.todo-container > h3 {
+.todo-container > .todo-heading {
     position: absolute;
     top: 0;
     left: 10px;
     font-family:Geneva,
         Verdana,
         sans-serif;
-    font-size: 30px;
+    font-size: 20px;
     color: var(--text-color);
 }
 

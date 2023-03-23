@@ -79,11 +79,13 @@ function makeProjects() {
         projectItem.innerHTML = `
         <div>
             <i class="fa-solid fa-plus"></i>
-            ${project.name}
+            <p class="project-name" >${project.name}</p>
         </div>
         <i class="fa-solid fa-trash-can"></i>`;
         projectItem.classList.add('project-item')
         listener.addTaskToProject(projectItem.childNodes[1].childNodes[1], project)
+        listener.getProjectTodos(projectItem.childNodes[1].childNodes[3], project.id)
+        listener.deleteProject(projectItem.childNodes[3], project.id)
         projectList.appendChild(projectItem);
     })
     return projectList;
@@ -94,6 +96,7 @@ function listen() {
         allTasksButton.addEventListener('click', () => {
             let allTasks = content.createTodoList()
             updateTodoList(allTasks);
+            updateTodoHeading('All tasks')
         })
         return
     }
@@ -103,6 +106,7 @@ function listen() {
             let todayTodos = date.fetchTodayTodos()
             let todayTodoList = content.createTodoList(todayTodos)
             updateTodoList(todayTodoList);
+            updateTodoHeading('Today');
         })
         return
     }
@@ -112,6 +116,7 @@ function listen() {
             let weeksTasks = date.fetchNext7DaysTodos()
             let sevenDaysTodoList = content.createTodoList(weeksTasks)
             updateTodoList(sevenDaysTodoList);
+            updateTodoHeading('Next 7 days')
         })
     }
 
@@ -149,6 +154,7 @@ function listen() {
                 formContainer.classList.remove('display')
             }
             updateProjectList()
+            form.childNodes[0].value = '';
         })
         return
     }
@@ -156,13 +162,37 @@ function listen() {
     const addTaskToProject = function (newProjectTodoButton, project) {
         newProjectTodoButton.addEventListener('click', () => {
             let form = document.getElementsByClassName('todo-form')[0]
-            form.setAttribute('data-id', `${project.id}`)
+            form.setAttribute('data-project-id', `${project.id}`)
             let todoNameInput = document.getElementById('titleInput');
             todoNameInput.focus();
         })
         return;
     }
 
+    const getProjectTodos = function(projectButton, projectId) {
+        projectButton.addEventListener('click', () => {
+            let project = storage.getSingleProject(projectId)
+            let propertyAssignedProject = Object.assign(new Project(), project)
+            let newTodoList = content.createTodoList(propertyAssignedProject.todos, projectId)
+            let todoContainer = document.getElementsByClassName('todo-container')[0];
+            let oldTodoList = document.getElementsByClassName('todo-list')[0]
+            let todoHeading = document.getElementsByClassName('todo-heading')[0];
+            todoContainer.removeChild(oldTodoList)
+            todoContainer.appendChild(newTodoList);
+            todoHeading.textContent = `${propertyAssignedProject.name}`;
+        })
+        return
+    }
+
+    const deleteProject = function(projectDeleteButton, projectId) {
+        projectDeleteButton.addEventListener('click', () => {
+            let project = storage.getSingleProject(projectId);
+            let propertyAssignedProject = Object.assign(new Project(), project)
+            propertyAssignedProject.deleteProject();
+            updateProjectList()
+            return;
+        })
+    }
     /**
      * HELPERS
      */
@@ -184,6 +214,13 @@ function listen() {
         return;
     }
 
+    // change heading of todo list in UI
+    const updateTodoHeading = function(newHeading) {
+        let todoHeading = document.getElementsByClassName('todo-heading')[0];
+        todoHeading.textContent = `${newHeading}`;
+        return;
+    }
+
     return {
         getAllTasksEvent,
         getTodayTasks,
@@ -192,6 +229,8 @@ function listen() {
         viewAllProjects,
         addNewProject,
         addTaskToProject,
+        getProjectTodos,
+        deleteProject,
     }
 
 }

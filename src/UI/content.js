@@ -35,10 +35,12 @@ export default class ContentCreator {
         const todoHeading = document.createElement('h3')
 
         todoContainer.classList.add('todo-container');
+        todoHeading.classList.add('todo-heading');
 
         todoHeading.textContent = 'Get Busy';
 
-        let todoList = this.createTodoList()
+        let todoList = this.createTodoList();
+        todoList.classList.add('todo-list')
 
         todoContainer.appendChild(todoHeading);
         todoContainer.appendChild(todoList);
@@ -46,6 +48,7 @@ export default class ContentCreator {
         return todoContainer
     }
 
+    // Takes todo objects and puts them in unordered list
      createTodoList(todos) {
         let allTodos;
         if (todos) {
@@ -64,6 +67,7 @@ export default class ContentCreator {
      
         const todoList = document.createElement('ul')
         todoList.classList.add('todo-list')
+
         allTodos.forEach(todo => {
             const todoItem = document.createElement('li')
             todoItem.classList.add('todo-item')
@@ -74,14 +78,16 @@ export default class ContentCreator {
                 <i class="fa-solid fa-star ${todo.priority}" ></i>\
                 <i class="fa-solid fa-trash-can trash-can"></i>\
             </div>`;
+
             listener.showDetails(todoItem.childNodes[0].childNodes[1], todo)
-           listener.deleteTodo(todoItem.childNodes[2].childNodes[3], todo)
+            listener.deleteTodo(todoItem.childNodes[2].childNodes[3], todo)
 
             todoList.appendChild(todoItem);
         })
         return todoList;
     }
 
+    //refreshes todo list after changes to a todo
     updateTodoList() {
    
         const todosParent = document.getElementsByClassName('todo-container')[0]
@@ -92,11 +98,6 @@ export default class ContentCreator {
         let newTodoList = this.createTodoList()
 
         todosParent.appendChild(newTodoList);
-    }
-
-    editDisplayedTodo() {
-        let form = document.getElementsByClassName('edit-form')[0]
-        listener.edit(form)
     }
 
     changeNoteContent(newContent) {
@@ -110,7 +111,7 @@ export default class ContentCreator {
 function listen() {
     
     const submit = function(form) {
-        form.addEventListener('submit', (e) => onSubmit(e, form)) // "onSubmit (line 121 - 206)"
+        form.addEventListener('submit', (e) => onSubmit(e, form)) // "onSubmit (line 177 - 273)"
         return
     }
 
@@ -167,11 +168,11 @@ function listen() {
          * ==================================================================================================
          * Run this if to edit todo
          */
-        if (form.classList[0] == 'edit-form') {
+        if (form.classList[1] == 'edit-form') {
             let { todos, projects } = storage.getAll();
             let todoId = form.getAttribute('data-id')
-           
-            // Updates a todo thats under a project
+
+            // run this if editing project todo
             let propertyAssignedProject
             projects.forEach(project => {
                 if (project.todos.length > 0) {
@@ -229,7 +230,6 @@ function listen() {
         [...elements].forEach(element => {
             values.push(element.value)
         })
-        console.log(values)
 
         todos.forEach(todo => {
             if (todo.title == values[0]) alert('Todo exists already.')
@@ -245,12 +245,12 @@ function listen() {
             values[3]
         )
          
-        let projectId = form.getAttribute('data-id')
+        let projectId = form.getAttribute('data-project-id')
         if (projectId) {
             let projectToUpdate = storage.getSingleProject(projectId);
             let propertyAssignedProjectToUpdate = Object.assign(new Project(), projectToUpdate);
             propertyAssignedProjectToUpdate.addTodo(todo)
-            form.removeAttribute('data-id');
+            form.removeAttribute('data-project-id');
             finalizeUpdate(form)
             return
         }
@@ -266,7 +266,7 @@ function listen() {
         let content = new ContentCreator()
         content.updateTodoList()
         formFunctions().emptyForm(form)
-        if (form.classList[0] == 'edit-form') {
+        if (form.classList[1] == 'edit-form') {
             form.classList.remove('edit-form');
             form.childNodes[3].textContent = 'Add'
         }    
