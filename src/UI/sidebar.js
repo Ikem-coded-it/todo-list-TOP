@@ -1,7 +1,7 @@
-import LocalStorageOperations from '../storage.js'; 
+import LocalStorageOperations from '../storage/storage.js'; 
 import ContentCreator from './content.js';
-import DateTodoFetchOperations from '../date.js';
-import Project from '../project.js';
+import DateTodoFetchOperations from '../storage/date.js';
+import Project from '../storage/project.js';
 import { formListener } from './content.js';
 const storage = new LocalStorageOperations();
 const content = new ContentCreator();

@@ -1,6 +1,6 @@
-import LocalStorageOperations from "../storage";
-import Todo from '../todo.js';
-import Project from "../project";
+import LocalStorageOperations from "../storage/storage";
+import Todo from '../storage/todo.js';
+import Project from "../storage/project";
 import formFunctions from './form.js'
 const storage = new LocalStorageOperations();
 

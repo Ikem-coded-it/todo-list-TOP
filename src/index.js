@@ -1,7 +1,7 @@
-import LocalStorageOperations from './storage.js';
+import LocalStorageOperations from './storage/storage.js';
 import initializeUI from './UI/page.js';
-import Project from './project.js';
-import Todo from './todo.js';
+import Project from './storage/project.js';
+import Todo from './storage/todo.js';
 const storage = new LocalStorageOperations();
  
 
