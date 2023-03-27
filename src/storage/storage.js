@@ -6,9 +6,11 @@ export default class LocalStorageOperations{
         // initialize todo and project arrays in local storage
         const todos = []
         const projects = []
+        const notes = []
 
         this.storage.setItem('todos', JSON.stringify(todos))
         this.storage.setItem('projects', JSON.stringify(projects))
+        this.storage.setItem('notes', JSON.stringify(notes))
         console.log('storage loaded')
         return
     }
@@ -58,7 +60,7 @@ export default class LocalStorageOperations{
         const todo = allTodos.find(todo => todo.id === oldTodo.id)
 
         if (!todo) {
-            console.log('Todo does not exist');
+            alert('Todo does not exist');
             return
         };
 
@@ -92,7 +94,10 @@ export default class LocalStorageOperations{
         const projectDatabase = JSON.parse(this.storage.getItem('projects'));
 
         let project = projectDatabase.find(project => project.id == oldProject.id)
-        if (!project) alert('Project does not exist')
+        if (!project) {
+            alert('Project does not exist')
+            return
+        } 
  
         project.name = newProject.name
         project.todos = newProject.todos
@@ -106,7 +111,7 @@ export default class LocalStorageOperations{
         const project = projectDatabase.find(project => project.id == projectToUpdate.id)
 
         if (!project) {
-            console.log('Project does not exist');
+            alert('Project does not exist');
             return
         };
 
@@ -122,7 +127,7 @@ export default class LocalStorageOperations{
         const project = projectDatabase.find(project => project.id == projectToRemoveFrom.id)
 
         if (!project) {
-            console,log('Project does not exist');
+            alert('Project does not exist');
             return
         };
 
@@ -150,5 +155,58 @@ export default class LocalStorageOperations{
         this.storage.setItem('projects', JSON.stringify(projectDatabase));
          
         return
+    }
+
+    // STORAGE OPERATION FOR NOTES ------------------------------------------------------
+
+    getAllNotes() {
+        let notes = JSON.parse(this.storage.getItem('notes'));
+        if (!notes) {
+            alert('No notes found')
+            return
+        }
+        return notes;
+    }
+
+    getSingleNote(id) {
+        let allNotes = JSON.parse(this.storage.getItem('notes'));
+        let note = allNotes.find(note => note.id == id);
+        if (!note) {
+            alert('Note does not exist')
+            return
+        }
+        return note;
+    }
+
+    saveNote(note) {
+        let allNotes = this.getAllNotes();
+        allNotes.push(note)
+        this.storage.setItem('notes', JSON.stringify(allNotes));
+    }
+
+    updateNote(newNote, oldNote) {
+        let allNotes = this.getAllNotes();
+
+        let note = allNotes.find(note => note.id == oldNote.id)
+        if (!note) {
+            alert('Note does not exist')
+            return
+        }
+ 
+        note.body = newNote.body
+ 
+        this.storage.setItem('notes', JSON.stringify(allNotes))
+        return
+    }
+
+    deleteNote(id) {
+        let allNotes = this.getAllNotes();
+        allNotes.forEach(note => {
+            if (note.id == id) {
+                let noteIndex = allNotes.indexOf(note)
+                allNotes.splice(noteIndex, 1)
+            }
+        })
+        this.storage.setItem('notes', JSON.stringify(allNotes));
     }
 }

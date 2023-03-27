@@ -162,7 +162,13 @@ function listen() {
     const addTaskToProject = function (newProjectTodoButton, project) {
         newProjectTodoButton.addEventListener('click', () => {
             let form = document.getElementsByClassName('todo-form')[0]
+            if (form.classList[1] == 'edit-form') form.classList.remove('edit-form')
             form.setAttribute('data-project-id', `${project.id}`)
+            form.titleInput.value = '';
+            form.descriptionInput.value = '';
+            form.dateInput.value = '';
+            form.priorityInput.value = 'Low';
+            form.childNodes[3].textContent = 'Add';
             let todoNameInput = document.getElementById('titleInput');
             todoNameInput.focus();
         })

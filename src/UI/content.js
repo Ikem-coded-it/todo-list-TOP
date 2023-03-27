@@ -1,7 +1,8 @@
 import LocalStorageOperations from "../storage/storage";
 import Todo from '../storage/todo.js';
 import Project from "../storage/project";
-import formFunctions from './form.js'
+import formFunctions from './form.js';
+import Note from '../storage/notes';
 const storage = new LocalStorageOperations();
 
 export default class ContentCreator {
@@ -12,7 +13,6 @@ export default class ContentCreator {
         const content = document.createElement('div')
         content.classList.add('main-content')
 
-        this.noteSection.textContent = 'Notes'
         this.noteSection.classList.add('notes-section');
 
         this.todoSection = document.createElement('div');
@@ -23,6 +23,15 @@ export default class ContentCreator {
 
         this.todoSection.appendChild(form)
         this.todoSection.appendChild(this.createAllTasksContent())
+
+        let notesHeadingContainer = document.createElement('div')
+        notesHeadingContainer.innerHTML = '\
+        <h3 class="notes-heading">Notes</h3>\
+        <i class="fa-solid fa-plus notes-plus"></i>';
+        listener.addNewNote(notesHeadingContainer.childNodes[3])
+        notesHeadingContainer.classList.add('notes-heading-container');
+        this.noteSection.appendChild(notesHeadingContainer)
+        this.noteSection.appendChild(this.createAllNotesContent())
 
         content.appendChild(this.noteSection)
         content.appendChild(this.todoSection)
@@ -100,11 +109,35 @@ export default class ContentCreator {
         todosParent.appendChild(newTodoList);
     }
 
-    changeNoteContent(newContent) {
-        this.noteSection.removeChild(this.noteSection.firstChild)
-        this.noteSection.appendChild(newContent)
+    createAllNotesContent() {
+        let notesContainer = document.createElement('div');
+        notesContainer.classList.add('notes-container')
+
+        let notes = storage.getAllNotes()
+        let textAreaNotesContainer = notes.map((note) => {
+            let textAreaContainer = document.createElement('div')
+            textAreaContainer.innerHTML = `
+            <textarea class="note-text-area">${note.body}</textarea>
+            <i class="fa-solid fa-trash-can note-delete-btn"></i>`;
+            textAreaContainer.classList.add('textarea-container');
+            textAreaContainer.setAttribute('data-note-id', `${note.id}`)
+            listener.oldNoteEdit(textAreaContainer.childNodes[1])
+            listener.deleteNote(textAreaContainer.childNodes[3]);
+            return textAreaContainer;
+        })
+
+        textAreaNotesContainer.forEach(textAreaContainer => {
+            notesContainer.appendChild(textAreaContainer);
+        })
+        return notesContainer;
     }
 
+    updateNotesList() {
+        let notesSection = document.getElementsByClassName('notes-section')[0]
+        let notesContainer = document.getElementsByClassName('notes-container')[0]
+        notesSection.removeChild(notesContainer);
+        notesSection.appendChild(this.createAllNotesContent());
+    }
 }
 
 // Returns event listener functions
@@ -161,7 +194,54 @@ function listen() {
         })
     }
 
+    const addNewNote = function(newNoteButton) {
+        newNoteButton.addEventListener('click', () => {
+            let notesContainer = document.getElementsByClassName('notes-container')[0];
+            let textAreaContainer = document.createElement('div')
+            textAreaContainer.innerHTML = '\
+            <textarea class="note-text-area"></textarea>\
+            <i class="fa-solid fa-trash-can note-delete-btn"></i>';
+            textAreaContainer.classList.add('textarea-container');
+            deleteNote(textAreaContainer.childNodes[3]);
 
+            notesContainer.appendChild(textAreaContainer);
+            let newNote = new Note(
+                textAreaContainer.childNodes[1].value
+            )
+            newNote.saveNote();
+            textAreaContainer.setAttribute('data-note-id', `${newNote.id}`)
+            oldNoteEdit(textAreaContainer.childNodes[1])
+            textAreaContainer.childNodes[1].focus()
+        })
+        return;
+    }
+
+    const deleteNote = function(deleteNoteButton) {
+        deleteNoteButton.addEventListener('click', (e) => {
+            let noteId = e.target.parentElement.getAttribute('data-note-id');
+            storage.deleteNote(noteId);
+            let content = new ContentCreator()
+            content.updateNotesList()
+        })
+        return;
+    }
+ 
+    const oldNoteEdit = function(textArea) {
+        textArea.addEventListener('focusout', (e) => {
+            let noteId = e.target.parentElement.getAttribute('data-note-id');
+            if (noteId) {
+                let note = storage.getSingleNote(noteId);
+                let propertyAssignedNote = Object.assign(new Note(), note)
+                let newNote = new Note(
+                    e.target.value
+                )
+                propertyAssignedNote.updateNote(newNote)
+            }
+        })
+        return;
+    }
+ 
+ 
     const onSubmit = (e, form) => {
         e.preventDefault()
         /**
@@ -275,7 +355,10 @@ function listen() {
     return {
         submit,
         showDetails,
-        deleteTodo
+        deleteTodo,
+        addNewNote,
+        deleteNote,
+        oldNoteEdit,
     }
 }
 

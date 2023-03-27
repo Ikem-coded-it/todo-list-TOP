@@ -21,7 +21,7 @@ export default function createWebsiteFrame() {
     content.appendChild(contentCreator.createSections());
 
     footer.classList.add('footer')
-    footer.textContent = 'footer'
+    footer.innerHTML = `<p>Copyright © Ikem-Coded-It ${new Date().getFullYear()}</p><i class="fa-solid fa-github"></i>`;
 
     body.appendChild(header)
     body.appendChild(sideBar)

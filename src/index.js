@@ -2,6 +2,7 @@ import LocalStorageOperations from './storage/storage.js';
 import initializeUI from './UI/page.js';
 import Project from './storage/project.js';
 import Todo from './storage/todo.js';
+import Note from './storage/notes.js';
 const storage = new LocalStorageOperations();
  
 
@@ -30,6 +31,10 @@ const todo12 = new Todo('whatsapp', 'do this task', '2023-03-28', 'high');
 const todo13 = new Todo('watch movie', 'do this task', '2023-03-29', 'high');
 const todo14 = new Todo('eatjdcnkwnovn;oJVOIAJVONWRIFJOIWRJFOIJWROIFJOIEWJFIWEJSDNVLKNDLVLSDMVLDFVLIDFLIVLIV', 'find some food coz im starving', '2020-11-6', 'medium');
 
+const note1 = new Note("some stuff in here about some subject that i don't really care about because this is just an example so it's not important at all");
+const note2 = new Note("some stuff in here about some subject that i don't really care about because this is just an example so it's not important at all");
+const note3 = new Note("some stuff in here about some subject that i don't really care about because this is just an example so it's not important at all");
+
 // project1.saveProject()
 // project2.saveProject()
 // project3.saveProject()
@@ -37,19 +42,21 @@ const todo14 = new Todo('eatjdcnkwnovn;oJVOIAJVONWRIFJOIWRJFOIJWROIFJOIEWJFIWEJS
 // project5.saveProject()
 // project6.saveProject()
 
-todo1.saveTodo()
-todo2.saveTodo()
-todo3.saveTodo()
-todo6.saveTodo()
-todo7.saveTodo()
-todo8.saveTodo()
-todo9.saveTodo()
-todo10.saveTodo()
-todo11.saveTodo()
-todo12.saveTodo()
-todo13.saveTodo()
-// todo5.saveTodo()
+// todo1.saveTodo()
+// todo2.saveTodo()
+// todo3.saveTodo()
+// todo6.saveTodo()
+// todo7.saveTodo()
+// todo8.saveTodo()
+// todo9.saveTodo()
+// todo10.saveTodo()
+// todo11.saveTodo()
+// todo12.saveTodo()
+// todo13.saveTodo()
  
+// note1.saveNote()
+// note2.saveNote()
+// note3.saveNote()
  
 
 initializeUI()
