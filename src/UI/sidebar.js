@@ -61,7 +61,7 @@ function newProjectForm() {
     let formContainer = document.createElement('div')
     let form = document.createElement('form');
     form.classList.add('project-form')
-    form.innerHTML = '<input type="text" placeholder="Project name"><button type="submit">Add</button>';
+    form.innerHTML = '<input type="text" placeholder="Project name" max="15"><button type="submit">Add</button>';
     listener.addNewProject(form)
     formContainer.appendChild(form)
     formContainer.classList.add('project-form-container')
@@ -70,6 +70,7 @@ function newProjectForm() {
 
 function makeProjects() {
     const projectList = document.createElement('ul');
+    projectList.innerHTML = '<i class="fa-solid fa-xmark"></i>'
     projectList.classList.add('project-list')
     projectList.classList.add('hide-projects')
 

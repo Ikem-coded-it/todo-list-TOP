@@ -4,9 +4,9 @@
 }
 
 :root {
-    --header-color: #f1f5f9;
+    --header-color: #d1e3f5;
     --side-bar-color: #0f172a;
-    --content-color: #f8fafc;
+    --content-color: #d1e3f5;
     --default-font-color: #292524;
     --icon-color: #a3e635;
     --todos-color: #cffafe;
@@ -235,6 +235,7 @@ i {
 
 .project-list {
     display: none;
+    background-color: var(--side-bar-color);
 }
 
 .display {
@@ -295,11 +296,7 @@ i {
     flex-direction: column;
     position: relative;
 }
-
-.notes-section div {
-    /* border: 1px solid black; */
-}
-
+ 
 .notes-heading-container {
     display: flex;
     justify-content: space-between;
@@ -453,7 +450,6 @@ label {
 /* TODO DISPLAY STYLES */
 
 .todo-container {
-    /* border: 1px solid black; */
     height: 100%;
     width: 100%;
     display: flex;
@@ -547,4 +543,213 @@ label {
 
 .todo-icons-container > .fa-trash-can {
     color: var(--text-color);
+}
+
+
+/* FOOTER STYLES */
+
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--header-color);
+    font-weight: bold;
+    font-size: 20px;
+    font-family: Geneva, Tahoma, sans-serif;
+}
+
+.footer .fa {
+    font-size: 30px;
+    color: #171515;
+}
+
+/* MOBILE STYLES */
+
+@media only screen and (max-width: 700px) {
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        /* border: 3px solid yellow; */
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+    }    
+
+    .header {
+        margin: 0;
+        padding: 0;
+        height: 50px;
+        /* border: 3px solid yellow; */
+    }
+
+    .side-bar {
+        height: fit-content;
+    }
+
+    /* HEADER STYLES */
+
+    .header-content {
+        margin: 0;
+        padding: 0;
+        width: 100vw;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .logo-container {
+        height: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .logo-image {
+        margin: 0;
+    }
+
+    .fa-square-check {
+        font-size: 30px;
+    }
+
+    .logo-text {
+        font-size: 20px;
+    }
+
+    .greeting-container {
+        font-size: 20px;
+        font-family: Geneva, Tahoma, sans-serif;
+    }
+
+    .date {
+        font-size: 10px;
+        font-weight: light;
+    }
+
+    /* SIDE BAR STYLES */
+
+    .side-bar-content {
+        height: 200px;
+        width: 100vw;
+        border-top-left-radius: 0;
+        flex-direction: row;
+        position: static;
+    }
+
+    .side-bar-stuff {
+        flex-direction: column;
+        gap: 15px;
+        font-size: 15px;
+        position: static;
+    }
+
+    .side-bar-stuff>div {
+        gap: 15px;
+    }
+
+    #projects-container>div {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+        justify-content: flex-start;
+        width: 100%;
+    }
+
+    #projects-container>.project-form-container {
+        position: absolute;
+        top: 20px;
+    }
+
+
+    #projects-container>.project-form-container>form>input {
+        width: 50%;
+        height: 20px;
+        padding: 0 5px 0 5px;
+        font-size: 10px;
+    }
+
+    #projects-container>.project-form-container>form>button {
+        width: 25%;
+    }    
+
+    .main-content {
+        width: 100%;
+        height: fit-content;
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 30px;
+    }
+
+    .todos-section {
+        border: none;
+        height:  600px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .todo-form > div > label {
+        font-size: 15px;
+    }
+
+    .title-input {
+        height: 10px;
+        width: 60%;
+    }
+
+    .todo-form>div>.description-input {
+        min-width: 60%;
+        max-width: 60%;
+        max-height: 30px;
+        min-height: 30px;
+    }
+
+    .todo-form > #date-priority-input-container {
+        flex-direction: column;
+        gap: 15px;
+        font-size: 15px;
+    }
+
+    .todos-section > .todo-container {
+        width: 100%;
+    }
+
+    .notes-section {
+        border: none;
+        height: 300px;
+    }
+
+    .notes-heading-container>h3 {
+        margin-left: 10px;
+    }
+
+    .notes-heading-container > .fa-plus {
+        margin-right: 20px;
+        color: var(--text-color);
+    }
+
+    .notes-container {
+        width: 100%;
+    }
+
+    .note-text-area {
+        min-width: 75%;
+        max-width: 75%;
+        min-height: 100px;
+        max-height: 120px;
+        margin-left: 10px;
+    }
+
+    .footer {
+        font-size: 15px;
+    }
+
+    .footer > a > .fa {
+        height: 30px;
+        font-size: 20px;
+        margin-top: 30px;
+    }
 }
