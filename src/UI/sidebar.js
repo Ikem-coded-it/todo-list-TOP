@@ -70,7 +70,6 @@ function newProjectForm() {
 
 function makeProjects() {
     const projectList = document.createElement('ul');
-    projectList.innerHTML = '<i class="fa-solid fa-xmark"></i>'
     projectList.classList.add('project-list')
     projectList.classList.add('hide-projects')
 
