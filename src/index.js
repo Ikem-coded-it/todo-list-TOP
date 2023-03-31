@@ -8,6 +8,9 @@ const storage = new LocalStorageOperations();
 
 storage.initializeStorage()
 
+
+// Dummy test data
+
 const project1 = new Project('work', [new Todo('Code stuff', 'from project', '2023-05-06', 'high'), 
     new Todo('work things', 'from project', '2023-05-06', 'high')])
 const project2 = new Project('gym', [new Todo('Gym Stuff', 'from project', '2023-05-06', 'low'), 
@@ -35,14 +38,14 @@ const note1 = new Note("some stuff in here about some subject that i don't reall
 const note2 = new Note("some stuff in here about some subject that i don't really care about because this is just an example so it's not important at all");
 const note3 = new Note("some stuff in here about some subject that i don't really care about because this is just an example so it's not important at all");
 
-project1.saveProject()
-project2.saveProject()
+// project1.saveProject()
+// project2.saveProject()
 // project3.saveProject()
 // project4.saveProject()
 // project5.saveProject()
 // project6.saveProject()
 
-todo1.saveTodo()
+// todo1.saveTodo()
 // todo2.saveTodo()
 // todo3.saveTodo()
 // todo6.saveTodo()
@@ -54,7 +57,7 @@ todo1.saveTodo()
 // todo12.saveTodo()
 // todo13.saveTodo()
  
-note1.saveNote()
+// note1.saveNote()
 // note2.saveNote()
 // note3.saveNote()
  

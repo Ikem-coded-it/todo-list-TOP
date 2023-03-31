@@ -440,7 +440,7 @@ label {
     background-color: var(--icon-color);
     border: none;
     border-radius: 3px;
-    color: var(--content-color);
+    color: white;
     margin-top: 10px;
 }
 
@@ -687,9 +687,13 @@ label {
 
     .todos-section {
         border: none;
-        height:  600px;
+        height:  550px;
         display: flex;
         flex-direction: column;
+    }
+
+    .todo-form {
+        margin-bottom: 40px;
     }
 
     .todo-form > div > label {
@@ -715,11 +719,21 @@ label {
     }
 
     .todos-section > .todo-container {
+        border-top: 1px solid var(--side-bar-color);
         width: 100%;
+        min-height: fit-content;
+        margin-bottom: 30px;
+    }
+
+    .todo-container > .todo-heading {
+        top: 20px;
     }
 
     .notes-section {
-        border: none;
+        border-top: 1px solid var(--side-bar-color);
+        border-right: none;
+        border-left: none;
+        border-bottom: none;
         height: 300px;
     }
 
@@ -737,8 +751,8 @@ label {
     }
 
     .note-text-area {
-        min-width: 75%;
-        max-width: 75%;
+        min-width: 83%;
+        max-width: 85%;
         min-height: 100px;
         max-height: 120px;
         margin-left: 10px;
