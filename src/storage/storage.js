@@ -1,36 +1,42 @@
 export default class LocalStorageOperations{
 
-    storage = localStorage;
+    // storage = localStorage;
 
     initializeStorage() {
         // initialize todo and project arrays in local storage
-        const todos = []
-        const projects = []
-        const notes = []
+        let confirmStorageIsUsed = JSON.parse(localStorage.getItem('todos'));
 
-        this.storage.setItem('todos', JSON.stringify(todos))
-        this.storage.setItem('projects', JSON.stringify(projects))
-        this.storage.setItem('notes', JSON.stringify(notes))
-        console.log('storage loaded')
+        if (!confirmStorageIsUsed) {
+            // initialize local storage for device browser if not initialized
+            const todos = []
+            const projects = []
+            const notes = []
+
+            localStorage.setItem('todos', JSON.stringify(todos))
+            localStorage.setItem('projects', JSON.stringify(projects))
+            localStorage.setItem('notes', JSON.stringify(notes))
+            console.log('storage loaded')
+            return
+        }
         return
     }
 
     getAll() {
-        const todos = JSON.parse(this.storage.getItem('todos'));
-        const projects = JSON.parse(this.storage.getItem('projects'));
+        const todos = JSON.parse(localStorage.getItem('todos'));
+        const projects = JSON.parse(localStorage.getItem('projects'));
         return {todos, projects};
     }
 
     saveTodo(todo) {
-        const todoDatabase = JSON.parse(this.storage.getItem('todos'));
+        const todoDatabase = JSON.parse(localStorage.getItem('todos'));
         todoDatabase.push(todo)
-        this.storage.setItem('todos', JSON.stringify(todoDatabase))
+        localStorage.setItem('todos', JSON.stringify(todoDatabase))
          
         return
     }
 
     deleteTodo(todoToDelete) {
-        const todoDatabase = JSON.parse(this.storage.getItem('todos'));
+        const todoDatabase = JSON.parse(localStorage.getItem('todos'));
         let todoIndex;
         todoDatabase.forEach(todo => {
             if (todo.title == todoToDelete.title &&
@@ -39,14 +45,14 @@ export default class LocalStorageOperations{
             }
         })
         todoDatabase.splice(todoIndex, 1);
-        this.storage.setItem('todos', JSON.stringify(todoDatabase));
+        localStorage.setItem('todos', JSON.stringify(todoDatabase));
          
         return
     }
 
     updateTodo(oldTodo, newTodo) {
-        const todoDatabase = JSON.parse(this.storage.getItem('todos'));
-        const projectTodDatabase = JSON.parse(this.storage.getItem('projects'))
+        const todoDatabase = JSON.parse(localStorage.getItem('todos'));
+        const projectTodDatabase = JSON.parse(localStorage.getItem('projects'))
 
         let projectTodos = []
         projectTodDatabase.forEach(project => {
@@ -70,28 +76,28 @@ export default class LocalStorageOperations{
         todo.dueDate = newTodo.dueDate;
         todo.priority = newTodo.priority;
 
-        this.storage.setItem('todos', JSON.stringify(todoDatabase));
+        localStorage.setItem('todos', JSON.stringify(todoDatabase));
         
         return
     }
 
     getSingleProject(projectId) {
-        const projectDatabase = JSON.parse(this.storage.getItem('projects'));
+        const projectDatabase = JSON.parse(localStorage.getItem('projects'));
         let project = projectDatabase.find(project => project.id == projectId);
         return project;
     }
 
 
     saveProject(project) {
-        const projectDatabase = JSON.parse(this.storage.getItem('projects'));
+        const projectDatabase = JSON.parse(localStorage.getItem('projects'));
         projectDatabase.push(project);
-        this.storage.setItem('projects', JSON.stringify(projectDatabase));
+        localStorage.setItem('projects', JSON.stringify(projectDatabase));
 
         return
     }
 
     updateProject(oldProject, newProject) {
-        const projectDatabase = JSON.parse(this.storage.getItem('projects'));
+        const projectDatabase = JSON.parse(localStorage.getItem('projects'));
 
         let project = projectDatabase.find(project => project.id == oldProject.id)
         if (!project) {
@@ -102,12 +108,12 @@ export default class LocalStorageOperations{
         project.name = newProject.name
         project.todos = newProject.todos
  
-        this.storage.setItem('projects', JSON.stringify(projectDatabase))
+        localStorage.setItem('projects', JSON.stringify(projectDatabase))
         return
     }
 
     addProjectTodo(projectToUpdate) {
-        const projectDatabase = JSON.parse(this.storage.getItem('projects'));
+        const projectDatabase = JSON.parse(localStorage.getItem('projects'));
         const project = projectDatabase.find(project => project.id == projectToUpdate.id)
 
         if (!project) {
@@ -117,13 +123,13 @@ export default class LocalStorageOperations{
 
         project.todos = projectToUpdate.todos
 
-        this.storage.setItem('projects', JSON.stringify(projectDatabase));
+        localStorage.setItem('projects', JSON.stringify(projectDatabase));
 
         return
     }
 
     removeProjectTodo(todoToRemove, projectToRemoveFrom) {
-        const projectDatabase = JSON.parse(this.storage.getItem('projects'));
+        const projectDatabase = JSON.parse(localStorage.getItem('projects'));
         const project = projectDatabase.find(project => project.id == projectToRemoveFrom.id)
 
         if (!project) {
@@ -139,12 +145,12 @@ export default class LocalStorageOperations{
         })
         project.todos.splice(todoIndex, 1)
 
-        this.storage.setItem('projects', JSON.stringify(projectDatabase))
+        localStorage.setItem('projects', JSON.stringify(projectDatabase))
         return
     }
 
     deleteProject(projectToDelete) {
-        const projectDatabase = JSON.parse(this.storage.getItem('projects'));
+        const projectDatabase = JSON.parse(localStorage.getItem('projects'));
         let projectIndex;
         projectDatabase.forEach(project => {
             if (project.name == projectToDelete.name) {
@@ -152,7 +158,7 @@ export default class LocalStorageOperations{
             }
         })
         projectDatabase.splice(projectIndex, 1);
-        this.storage.setItem('projects', JSON.stringify(projectDatabase));
+        localStorage.setItem('projects', JSON.stringify(projectDatabase));
          
         return
     }
@@ -160,7 +166,7 @@ export default class LocalStorageOperations{
     // STORAGE OPERATION FOR NOTES ------------------------------------------------------
 
     getAllNotes() {
-        let notes = JSON.parse(this.storage.getItem('notes'));
+        let notes = JSON.parse(localStorage.getItem('notes'));
         if (!notes) {
             alert('No notes found')
             return
@@ -169,7 +175,7 @@ export default class LocalStorageOperations{
     }
 
     getSingleNote(id) {
-        let allNotes = JSON.parse(this.storage.getItem('notes'));
+        let allNotes = JSON.parse(localStorage.getItem('notes'));
         let note = allNotes.find(note => note.id == id);
         if (!note) {
             alert('Note does not exist')
@@ -181,7 +187,7 @@ export default class LocalStorageOperations{
     saveNote(note) {
         let allNotes = this.getAllNotes();
         allNotes.push(note)
-        this.storage.setItem('notes', JSON.stringify(allNotes));
+        localStorage.setItem('notes', JSON.stringify(allNotes));
     }
 
     updateNote(newNote, oldNote) {
@@ -195,7 +201,7 @@ export default class LocalStorageOperations{
  
         note.body = newNote.body
  
-        this.storage.setItem('notes', JSON.stringify(allNotes))
+        localStorage.setItem('notes', JSON.stringify(allNotes))
         return
     }
 
@@ -207,6 +213,6 @@ export default class LocalStorageOperations{
                 allNotes.splice(noteIndex, 1)
             }
         })
-        this.storage.setItem('notes', JSON.stringify(allNotes));
+        localStorage.setItem('notes', JSON.stringify(allNotes));
     }
 }
